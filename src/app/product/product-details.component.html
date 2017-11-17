@@ -1,0 +1,109 @@
+
+ <div class="container">
+    <div class="card">
+      <div class="row">
+        <div class="wrapper">
+          <div class="col-md-6">
+            <div class="preview">
+              <div class="preview-pic tab-content">
+              	<div class="my-img active">
+            		<img [src]="imgsrc" class="actual-img">
+            	</div>
+              </div>
+              <ul class="preview-thumbnail nav nav-tabs">
+                <li  *ngFor="let image of images;">
+                  <div class="my-img-thumb"><img src="{{image.ImgURL}}" (click)="imageActive(image.ImgURL)"></div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-6 ">
+            <div class="details">
+              <h3 class="text-danger">{{product.product_name}}</h3>
+
+           <star-rating-comp [starType]="'svg'"
+                           [rating]="product.product_avg_rating"
+                           [size]="'medium'"
+                           [staticColor]="'negative'"      
+                           [showHalfStars]="true"
+                           [disabled]="true">
+          </star-rating-comp> 
+
+              <hr>
+              <h4>Price: <span class="text-success">{{product.product_cost | currency:"INR":0}}</span></h4>
+              <h4>Color:
+                <span class="color" [ngStyle]="{'background-color':product.product_color.color_code}"> </span>
+              </h4>
+
+              <div class="action">
+                <h4>Share on
+                  <i class="fa fa-share-alt fa-lg"></i>
+                </h4>
+                <div class="share-container">
+                  <a href="#" class="btn btn-primary"><i class="fa fa-lg fa-facebook"></i></a>&nbsp;
+                  <a href="#" class="btn btn-danger"><i class="fa fa-lg fa-google"></i></a>&nbsp;
+                  <a href="#" class="btn btn-info"><i class="fa fa-lg fa-twitter"></i></a>&nbsp;
+                  <a href="#" class="btn btn-primary"><i class="fa fa-lg fa-linkedin"></i></a>&nbsp;
+                  <a href="#" class="btn btn-success"><i class="fa fa-lg fa-whatsapp"></i></a>
+                </div>
+              </div>
+
+              <div class="action">
+                <button class="btn btn-primary" type="button">ADD TO CART</button>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bs-example-modal-sm">RATE PRODUCT</button>
+                <div class="modal fade bs-example-modal-sm"  role="dialog">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Rate Product</h4>
+                      </div>
+                      <div class="modal-body">
+                        <star-rating-comp [starType]="'svg'"></star-rating-comp>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">RATE IT</button>
+                      </div>
+                    </div>                   
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="wrapper">
+          <div class="col-md-12">
+            <div class="preview">
+              <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                  <li role="presentation" class="active"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">Description</a></li>
+                  <li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">Features</a></li>
+                   <li role="presentation"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Stock</a></li>
+
+                </ul>
+                <br>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active" id="tab1"><p  *ngIf="product.product_description" >{{product.product_description}}</p></div>
+                  <div role="tabpanel" class="tab-pane" id="tab2">
+                  	<p *ngIf="product.product_dimension"><STRONG>Dimensions:</STRONG> {{product.product_dimension}} (Width*Hieght in inc)</p>
+                  	<p *ngIf="product.product_material"><STRONG>Material:</STRONG> {{product.product_material}} </p>
+                  	<p *ngIf="product.product_material"><STRONG>Manufacturer:</STRONG> {{product.product_producer}} </p>
+                   </div>
+                   <div role="tabpanel" class="tab-pane" id="tab3">
+                    <p *ngIf="product.product_stock">
+                    <STRONG>Product quntity:</STRONG> {{product.product_stock}}<span *ngIf="product.product_stock==0" style="color: red"> (Product out of stock)</span></p></div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<app-footer></app-footer>

@@ -1,0 +1,102 @@
+
+  <div class="container">
+    <div class="row">
+
+      <!-- Sidebar -->
+      <div class="col-md-3">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-danger">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#categories">
+                  <i class="fa fa-lg fa-angle-double-down"></i> Categories
+                </a>
+              </h4>
+            </div>
+            <div id="categories" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+              <div class="list-group">
+                <li class="list-group-item" *ngFor="let category of categories">
+                  <a (click)="getCategoryProducts(category)" *ngIf="category.category_isactive"><i class="fa fa-dot-circle-o"></i> {{category.category_name}} </a>
+                </li>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-danger">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#colors">
+                  <i class="fa fa-lg fa-angle-double-down"></i> Colors
+                </a>
+              </h4>
+            </div>
+            <div id="colors" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+              <div class="list-group-item">
+                <ul class="list-inline">
+                  <li *ngFor="let color of colors"><button type="button" data-toggle="tooltip" data-placement="top" title="color" class="color-box"  [ngStyle]="{'background-color':color.color_code}"></button></li>
+                 
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product list -->
+      <div class="col-md-9 vertical-line">
+        <div class="row padding-row">
+          <h5 class="pull-left">{{categoryTitle}}</h5>
+          <div class="pull-right">
+            <ul class="nav nav-pills" role="tablist">
+              <li class="nav-item">
+                <a (click)="getSortByRating()" class="nav-link" href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a (click)="getSortByHighPrice()" class="nav-link" href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">
+                    <i class="fa fa-inr" aria-hidden="true"></i>
+                    <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab" (click)="getSortByLowPrice()">
+                    <i class="fa fa-inr" aria-hidden="true" ></i>
+                    <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <h5 class="pull-right">Sort By : </h5>
+        </div>
+
+        <br>
+        <div class="col-md-4" *ngFor="let product of productArray" infinite-scroll
+           [infiniteScrollDistance]="skip"
+           [infiniteScrollThrottle]="300"
+           (scrolled) ="lazyLoadingProducts()">
+          <div class="thumbnail">
+            <div class="img-thumb" >
+            	<a routerLink="/products/{{product.id}}">
+              <img class="img-reposive" src="{{product.images[0].ImgURL}}" alt="product_image"></a>
+            </div>
+            <div class="caption">
+              <p class="elipse-product"><a routerLink="/products/{{product.id}}" >{{product.product_name}}</a></p>
+              <button class="pull-right btn btn-danger btn-xs">Add To Cart</button>
+              <p><strong>{{product.product_cost}}</strong></p>
+              <fieldset class="rating">
+		           <star-rating-comp [starType]="'svg'"
+		                           [rating]="product.product_avg_rating"
+		                           [size]="'medium'"
+		                           [staticColor]="'negative'"      
+		                           [showHalfStars]="true"
+		                           [disabled]="true">
+		          </star-rating-comp> 
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<app-footer></app-footer>

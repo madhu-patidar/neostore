@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <a class="navbar-brand" href="./index.html">
+        <a class="navbar-brand" routerLink="/">
         <i class="fa fa-shopping-bag fa-lg" aria-hidden="true"> <strong >NeoSTORE</strong> </i>
       </a>
       </div>
@@ -16,7 +16,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav">
-          <li><a href="./index.html">HOME</a></li>
+          <li><a routerLink="/home" routerLinkActive="active">HOME</a></li>
         </ul>
 
         <form autocomplete="off" class="pull-left">
@@ -43,12 +43,12 @@
             <span class="caret"></span>
           </a>
             <ul class="dropdown-menu">
-              <li><a href="./views/user/profile.html" ><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp; Profile</a></li>
-              <li><a href="./views/user/orders.html" ><i class="fa fa-list-alt fa-fw" aria-hidden="true"></i>&nbsp; Orders</a></li>
-              <li><a href="./views/user/address.html" ><i class="fa fa-address-card-o fa-fw" aria-hidden="true"></i>&nbsp; Addresses</a></li>
-              <li><a href="/"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>&nbsp; Logout</a></li>
-              <li><a href="./views/auth/login.html" ><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>&nbsp; Login</a></li>
-              <li><a href="./views/auth/register.html" ><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>&nbsp; Register</a></li>
+              <li *ngIf="currentUserId"><a href="./views/user/profile.html" ><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp; Profile</a></li>
+              <li *ngIf="currentUserId"><a href="./views/user/orders.html" ><i class="fa fa-list-alt fa-fw" aria-hidden="true"></i>&nbsp; Orders</a></li>
+              <li *ngIf="currentUserId"><a href="./views/user/address.html" ><i class="fa fa-address-card-o fa-fw" aria-hidden="true"></i>&nbsp; Addresses</a></li>
+              <li *ngIf="currentUserId"><a (click)="logout()" ><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>&nbsp; Logout</a></li>
+              <li *ngIf="!currentUserId"><a routerLink="/login" routerLinkActive="active" ><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>&nbsp; Login</a></li>
+              <li *ngIf="!currentUserId"><a routerLink="/register" routerLinkActive="active" ><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>&nbsp; Register</a></li>
             </ul>
           </li>
         </ul>

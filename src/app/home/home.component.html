@@ -1,31 +1,35 @@
-<app-header></app-header>
+
  <div class="container">
+
  	 <app-slider></app-slider>
 
-    <h3 class="text-center">Popular Products <small><a href="./views/product/product-list.html" >--view all</a></small></h3> 
+    <h3 class="text-center">Popular Products <small><a routerLink="/product/list" >--view all</a></small></h3> 
     
     
     <div class="row">
       <div  *ngFor="let product of products" class="col-md-4" >
-        <div class="thumbnail">
+        <div class="thumbnail" *ngIf="product.product_isactive">
           <div class="img-thumb">
-            <img src="http://via.placeholder.com/300x200" class="img img-responsive">
+            <img src="{{product.images[0].ImgURL}}" class="img img-responsive">
           </div>
           <div class="caption">
-            <h4 class="text-center"><a href="./views/product/product-details.html" >{{product.product_name}}</a></h4>
+            <h4 class="text-center"><a routerLink="/products/{{product.id}}" >{{product.product_name}}</a></h4>
             <h4 class="text-center">{{product.product_cost | currency:"INR":0}}</h4>
-            <div class="text-center">
-              <i class="fa fa-lg fa-star"></i>
-              <i class="fa fa-lg fa-star"></i>
-              <i class="fa fa-lg fa-star"></i>
-              <i class="fa fa-lg fa-star-o"></i>
-              <i class="fa fa-lg fa-star-o"></i>
-            </div>
+
+           <star-rating-comp [starType]="'svg'"
+                           [rating]="product.product_avg_rating"
+                           [size]="'medium'"
+                           [staticColor]="'negative'"      
+                           [showHalfStars]="true"
+                           [disabled]="true">
+          </star-rating-comp> 
+
           </div>
         </div>
       </div>
       
     </div>
   </div>
+
 
 <app-footer></app-footer>

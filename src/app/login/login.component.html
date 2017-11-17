@@ -1,0 +1,43 @@
+
+  <div class="container">
+    <div class="container-login">
+      <div class="col-md-5">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h2 class="text-center text-muted">Login to NeoSTORE</h2>
+          </div>
+          <div class="panel-body">
+            <p class="text-muted text-center">EASILY USING</p>
+            <button class="btn btn-default btn-lg"><i class="fa fa-facebook fa-lg  text-primary" ></i>Facebook</button>
+            <button class="btn btn-default btn-lg pull-right"><i class="fa fa-google fa-lg text-danger"></i>Google</button>
+
+            <p class="text-muted text-center">--OR USING--</p>
+
+            <form class="form-custom" [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onSubmit()" >
+              <div class="form-group">
+                <input type="text" class="form-control" formControlName="email" placeholder="Email Address">
+                <div *ngIf="!loginForm.controls.email.valid && loginForm.controls.email.dirty">
+                  <div *ngIf="loginForm.controls.email.hasError('required')" class="alert alert-danger">Can't be blank</div>
+                  <div *ngIf="loginForm.controls.email.hasError('minlength')" class="alert alert-danger">Can't be less than 6 characters</div>      
+                  <div *ngIf="loginForm.controls.email.hasError('pattern')" class="alert alert-danger">Invalid email pattern</div>      
+                </div>
+                <input type="password" class="form-control" formControlName="password" [readonly]="!loginForm.controls.email.valid" placeholder="Password">
+                <div *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.dirty">
+                  <div *ngIf="loginForm.controls.password.hasError('required')" class="alert alert-danger">Can't be blank</div>
+                  <div *ngIf="loginForm.controls.password.hasError('minlength')" class="alert alert-danger">Can't be less than 6 characters</div>      
+                  <div *ngIf="loginForm.controls.password.hasError('pattern')" class="alert alert-danger">Can only contain alphnumeric characters with no spaces</div>      
+                </div> 
+              </div>
+              <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+
+
+

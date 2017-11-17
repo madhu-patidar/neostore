@@ -7,7 +7,6 @@ export class Product {
   product_avg_rating: number;
   product_stock: number;
   product_color: string;
-  product_dimension: string;
   product_isactive: true;
   product_material: string;
   id: string;
@@ -16,8 +15,6 @@ export class Product {
 
 export class ProductImage {
     ImgURL: string;
-    ThumbURL100: string;
-    ThumbURL250: string;
     container: string;
     id: string;
     isActive: boolean;
