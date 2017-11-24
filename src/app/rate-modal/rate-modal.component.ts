@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { Router } from '@angular/router'
 import { Rating } from '../rating/rating'
 import { Product } from '../product/product'
+import { AuthGuard } from '../guards/auth.guard'
 
 import { RatingService } from '../rating/rating.service'
 
@@ -16,7 +17,11 @@ export class RateModalComponent implements OnInit {
    @Input() product:Product
 
   curent_user_userId = localStorage.getItem('currentUser')
-  constructor(private ratingService: RatingService) { }
+  constructor(
+    private ratingService: RatingService, 
+    private authGuard:AuthGuard,
+    private router:Router
+  	) { }
 
   ngOnInit() {
   }
@@ -44,6 +49,18 @@ export class RateModalComponent implements OnInit {
         return error
       }
     )
+  }
+
+  isAuthenticate(){
+
+  	 if(localStorage.getItem('currentUser') == undefined){
+  	 	alert("modal")
+        this.router.navigate(['/login']);
+        return false;
+      }
+      else{
+        return true;
+      } 
   }
 
 }
