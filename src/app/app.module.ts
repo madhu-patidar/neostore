@@ -6,13 +6,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { StarRatingModule } from 'angular-star-rating';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import {ImageZoomModule} from 'angular2-image-zoom';
 
 import { ProductRoutingModule } from './product/product.routing';
 import { HomeRoutingModule } from './home/home.routing';
 
+
 import { CategoryService } from './category/category.service';
+import { ProductFilterService } from './product/product-filter.service';
+import { RatingService } from './rating/rating.service'
 import { ProductService } from './product/product.service';
 import { AuthService } from './auth.service';
+import { ColorService } from './color/color.service'
 import { AuthGuard } from './guards/auth.guard';
 
 import { AppComponent } from './app.component';
@@ -22,11 +27,13 @@ import { FooterComponent } from './footer/footer.component';
 import { SliderComponent } from './slider/slider.component';
 import { ProductComponent } from './product/product.component';
 import { CategoryComponent } from './category/category.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './user/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProductDetailsComponent } from './product/product-details.component';
 import { ProductListComponent } from './product/product-list.component';
+import { SideBarComponent } from './sidebar/sidebar.component';
+import { RateModalComponent } from './rate-modal/rate-modal.component';
 
 
 @NgModule({
@@ -42,19 +49,22 @@ import { ProductListComponent } from './product/product-list.component';
     RegisterComponent,
     PageNotFoundComponent,
     ProductDetailsComponent,
-    ProductListComponent
+    ProductListComponent,
+    SideBarComponent,
+    RateModalComponent
   ],
   imports: [
+    ImageZoomModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
-     StarRatingModule.forRoot(),
-     ProductRoutingModule,
-     HomeRoutingModule,
-     InfiniteScrollModule
+    StarRatingModule.forRoot(),
+    ProductRoutingModule,
+    HomeRoutingModule,
+    InfiniteScrollModule
   ],
-  providers: [ProductService,CategoryService, AuthService, AuthGuard ],
+  providers: [ProductService,CategoryService, AuthService, AuthGuard, ColorService, ProductFilterService, RatingService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,7 +4,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from '../home/home.component';
-import { LoginComponent } from '../login/login.component';
+import { LoginComponent } from '../user/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { ProductDetailsComponent } from '../product/product-details.component';

@@ -14,6 +14,7 @@ export class ProductDetailsComponent implements OnInit {
   imgsrc:string
   id:string
   images:any
+  
   constructor(private route: ActivatedRoute, private productService:ProductService) { }
 
   ngOnInit() {
@@ -24,7 +25,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
 
-    getProduct(productId:string) {
+  getProduct(productId:string) {
     this.productService.getProduct(productId).subscribe(
       (response: Product) => {
         this.product = response 

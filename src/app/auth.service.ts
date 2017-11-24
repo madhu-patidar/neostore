@@ -4,21 +4,18 @@ import { Http, Response, Headers, RequestOptions} from '@angular/http'
 import 'rxjs/add/operator/map'
 import 'rxjs/Rx';
 
+import { userUrl } from './apiUrls'
+
 
 @Injectable()
 export class AuthService {
-
+accessToken:any
 private headers: Headers = new Headers({'Content-Type': 'application/json'});
-
-userUrl:string="http://180.149.245.182:3008/api/user_accounts/"
-
  
 constructor(private http: Http) { }
 
-
-
-  	login(user): Observable<any>{
-    return this.http.post(this.userUrl +'login', user, {headers: this.headers}).map((response: Response) => {                                
+  login(user): Observable<any>{
+    return this.http.post(userUrl +'login', user, {headers: this.headers}).map((response: Response) => {                                
        let res = response.json();
        if (res.userId ){
          localStorage.setItem('currentUserId', res.userId);
@@ -43,7 +40,7 @@ logout() {
     this.accessToken = localStorage.getItem('currentUser')
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    return this.http.post(this.userUrl + 'logout?access_token=' + this.accessToken, options).map( (response: Response)=>{
+    return this.http.post(userUrl + 'logout?access_token=' + this.accessToken, options).map( (response: Response)=>{
       // remove user from local storage to log user out
       localStorage.removeItem('currentUser');
       localStorage.removeItem('currentUserId');

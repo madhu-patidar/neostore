@@ -1,0 +1,26 @@
+	<button type="button" class="btn btn-warning" data-toggle="modal" data-target=".bs-example-modal-sm">RATE PRODUCT</button>
+
+    <div class="modal fade bs-example-modal-sm"  role="dialog" id="myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Rate Product</h4>
+          </div>
+          <div class="modal-body">
+          <star-rating-comp [starType]="'svg'"
+                            [rating]="rating"
+                            [size]="'medium'"
+                            [staticColor]="'negative'"
+                            [showHalfStars]="true"
+                            [disabled]="false"
+                            (onClick)="onClick($event)">
+          </star-rating-comp>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="closeFirstModal()" data-dismiss="modal">RATE IT</button>
+          </div>
+        </div>                   
+      </div>
+    </div>

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ProductService } from './product.service';
-import { Product } from '../product/product';
-import { ProductImage } from '../product/product';
+import { ProductFilterService } from './product-filter.service';
+import { ColorService } from '../color/color.service';
+import { Product } from './product';
+import { ProductImage } from './product';
 import { CategoryService } from '../category/category.service';
 import { Category } from '../category/category';
 
@@ -12,15 +14,21 @@ import { Category } from '../category/category';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  products:Product
+  products:any
   images:any
   categories:Category
   categoryId:string
   colors:any
-  productArray: any[] = []
+  productArray:any[] = []
   categoryTitle:string
+  allCategories:string = "All categories"
   skip: number = 0
-  constructor(private productService:ProductService, private categoryService:CategoryService,) { }
+  constructor(
+    private colorService:ColorService,
+    private productService:ProductService, 
+    private categoryService:CategoryService,
+    private productFilterService:ProductFilterService,
+    ) { }
 
   ngOnInit() {
    this.getProducts();
@@ -53,11 +61,11 @@ export class ProductListComponent implements OnInit {
 		} else {
 	    this.getCostDescendingOrderProductsWithCategory(this.categoryId)
 		}
- }
+  }
  
   getSortByRating(){
   	if(this.categoryId==undefined) {  
-       this.getProducts()
+       this.getProductsByRating()
 		} else {
 	    this.getRatingDescendingOrderProductsWithCategory(this.categoryId)
 		}
@@ -65,14 +73,33 @@ export class ProductListComponent implements OnInit {
 
   getProducts() {
     this.productService.getProducts(this.skip).subscribe(
-      (response: Product) => {
+      (response: any) => {
         this.products = response 
         this.images = response.images
         for(let product of this.products){
           this.productArray.push(product)
         }
-        this.categoryTitle = "All Categories"
-        console.log(this.products)
+        this.categoryTitle = this.allCategories
+        console.log("this.products")
+        console.log(this.productArray)
+        return response
+      },
+      (error :Error) => {
+        return error
+      }
+    )
+  }
+
+  getProductsByRating() {
+    this.productFilterService.getProductsByRating().subscribe(
+      (response: any) => {
+        this.products = response 
+        debugger
+        this.images = response.images
+        this.productArray = response
+        this.categoryTitle = this.allCategories
+        console.log("this.products")
+        console.log(this.productArray)
         return response
       },
       (error :Error) => {
@@ -95,7 +122,7 @@ export class ProductListComponent implements OnInit {
   }
 
   getColors() {
-    this.productService.getColors().subscribe(
+    this.colorService.getColors().subscribe(
       (response: Category) => {
         this.colors = response
         console.log(this.colors)
@@ -108,8 +135,8 @@ export class ProductListComponent implements OnInit {
   }
 
   getCostAscendingOrderProducts(){
-   this.productService.getCostAscendingOrderProducts().subscribe(
-      (response: Product) => {
+   this.productFilterService.getCostAscendingOrderProducts().subscribe(
+      (response: any) => {
         this.products = response 
         this.productArray = response
         this.images = response.images
@@ -124,10 +151,10 @@ export class ProductListComponent implements OnInit {
   }
 
   getCostAscendingOrderProductsWithCategory(categoryId:string){
-   this.categoryService.getCostAscendingOrderProducts(categoryId).subscribe(
-      (response: Product) => {
+   this.productFilterService.getCostAscendingOrderProductsWithCategory(categoryId).subscribe(
+      (response: any) => {
         this.products = response
-        this.productArray = response 
+        this.productArray = response
         this.images = response.images
         console.log(this.products)
         return response
@@ -140,8 +167,8 @@ export class ProductListComponent implements OnInit {
 
 
   getCostDescendingOrderProducts(){
-   this.productService.getCostDescendingOrderProducts().subscribe(
-      (response: Product) => {
+   this.productFilterService.getCostDescendingOrderProducts().subscribe(
+      (response: any) => {
         this.products = response 
         this.productArray = response        
         this.images = response.images
@@ -156,8 +183,8 @@ export class ProductListComponent implements OnInit {
   }
 
   getRatingDescendingOrderProductsWithCategory(categoryId:string){
-    this.categoryService.getRatingDescendingOrderProductsWithCategory(categoryId).subscribe(
-      (response: Product) => {
+    this.productFilterService.getRatingDescendingOrderProductsWithCategory(categoryId).subscribe(
+      (response: any) => {
         this.products = response
         this.productArray = response 
         this.images = response.images
@@ -172,8 +199,8 @@ export class ProductListComponent implements OnInit {
 
 
   getCostDescendingOrderProductsWithCategory(categoryId:string){
-    this.categoryService.getCostDescendingOrderProducts(categoryId).subscribe(
-      (response: Product) => {
+    this.productFilterService.getCostDescendingOrderProductsWithCategory(categoryId).subscribe(
+      (response: any) => {
         this.products = response 
         this.productArray = response
         this.images = response.images
@@ -189,8 +216,8 @@ export class ProductListComponent implements OnInit {
 
   getCategoryProducts(category:any) {
    console.log(category)
-    this.categoryService.getCategoryProducts(category.id).subscribe(
-      (response: Product) => {
+    this.productFilterService.getCategoryProducts(category.id).subscribe(
+      (response: any) => {
         this.products = response 
         this.productArray = response
         this.images = response.images
@@ -203,6 +230,18 @@ export class ProductListComponent implements OnInit {
         return error
       }
     )
+  }
+
+  getProductByCategory(event){
+    this.productArray = event.products
+    this.categoryTitle = event.title
+    this.categoryId = event.id
+  }
+
+  getProductsByColor(event){
+    this.categoryTitle = this.allCategories
+    this.categoryId = undefined
+    this.productArray = event
   }
 
 }

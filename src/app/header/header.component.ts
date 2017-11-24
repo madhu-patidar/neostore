@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
    this.currentUserId = localStorage.currentUser;
-    console.log(  this.currentUser)
+    console.log( this.currentUserId)
    console.log( localStorage)
   }
 

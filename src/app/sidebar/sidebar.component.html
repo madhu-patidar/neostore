@@ -1,0 +1,40 @@
+      <div class="col-md-3">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-danger">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#categories">
+                  <i class="fa fa-lg fa-angle-double-down"></i> Categories
+                </a>
+              </h4>
+            </div>
+            <div id="categories" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+              <div class="list-group">
+                <li class="list-group-item" *ngFor="let category of categories">
+                  <a (click)="getProductByCategory(category.id, category.category_name)" *ngIf="category.category_isactive"><i class="fa fa-dot-circle-o"></i> {{category.category_name}} </a>
+                </li>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-danger">
+            <div class="panel-heading" role="tab" id="headingOne">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#colors">
+                  <i class="fa fa-lg fa-angle-double-down"></i> Colors
+                </a>
+              </h4>
+            </div>
+            <div id="colors" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+              <div class="list-group-item">
+                <ul class="list-inline">
+                  <li *ngFor="let color of colors"><button 
+                    (click)="getProductcByColor(color.color_name)"
+                    type="button" data-toggle="tooltip" data-placement="top" title="color" class="color-box"  [ngStyle]="{'background-color':color.color_code}"></button></li>
+                 
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
