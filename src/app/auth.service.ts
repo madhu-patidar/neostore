@@ -8,18 +8,44 @@ import { userUrl } from './apiUrls'
 
 
 @Injectable()
-export class AuthService {
+export class AuthServiceLocal {
 accessToken:any
 private headers: Headers = new Headers({'Content-Type': 'application/json'});
  
 constructor(private http: Http) { }
 
   login(user): Observable<any>{
-    return this.http.post(userUrl +'login', user, {headers: this.headers}).map((response: Response) => {                                
+    return this.http.post(userUrl +'/login', user, {headers: this.headers}).map((response: Response) => {                                
        let res = response.json();
        if (res.userId ){
          localStorage.setItem('currentUserId', res.userId);
          localStorage.setItem('currentUser',  res.id);
+        return response;
+       }
+       else{
+         return response;
+       }
+    }).catch(this.handleError)
+  }
+
+  socialLogin(user): Observable<any>{
+    return this.http.post(userUrl +'/loginSocial', user, {headers: this.headers}).map((response: Response) => {                                
+       let res = response.json();
+       if (res.userId ){
+         localStorage.setItem('currentUserId', res.userId);
+         localStorage.setItem('currentUser',  res.id);
+        return response;
+       }
+       else{
+         return response;
+       }
+    }).catch(this.handleError)
+  }
+
+  register(user): Observable<any>{
+    return this.http.post(userUrl, JSON.stringify(user), {headers: this.headers}).map((response: Response) => {                                
+       let res = response.json();
+       if (res.userId ){
         return response;
        }
        else{
@@ -36,11 +62,11 @@ constructor(private http: Http) { }
    }
 
   
-logout() {
+  logout() {
     this.accessToken = localStorage.getItem('currentUser')
     let headers = new Headers({ 'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
-    return this.http.post(userUrl + 'logout?access_token=' + this.accessToken, options).map( (response: Response)=>{
+    return this.http.post(userUrl + '/logout?access_token=' + this.accessToken, options).map( (response: Response)=>{
       // remove user from local storage to log user out
       localStorage.removeItem('currentUser');
       localStorage.removeItem('currentUserId');

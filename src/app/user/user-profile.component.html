@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="container-fluid">
+    <div class="col-md-12">
+      <h4> My Account </h4>
+      <hr>
+    </div>
+
+    <div class="col-md-3">
+      <img src="http://soeasyloansonline.com.au/img/testimonial/noimg.png" class="img-responsive img-circle profile" alt="profile_pic" style="height: 200px; width: 200px !important;">
+  
+      <div class="text-center">
+        <br>
+        <div class="text-danger"><strong>{{name}}</strong></div>
+      </div>
+      <br>
+      <ul class="nav">
+        <li><a href="./orders.html" ><i class="fa fa-pencil fa-fw" aria-hidden="true"></i>&nbsp; Orders</a></li>
+        <li><a routerLink="/user/profile" routerLinkActive="active" ><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp; Profile</a></li>
+        <li><a href="./address.html" ><i class="fa fa-address-book fa-fw" aria-hidden="true"></i>&nbsp; Address</a></li>
+      </ul>
+    </div>
+
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h2>Profile</h2>
+          <hr>
+        </div>
+        <div class="panel-body">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th>First Name</th>
+                <td>{{user.first_name}}</td>
+              </tr>
+              <tr>
+                <th>Last Name</th>
+                <td>{{user.last_name}}</td>
+              </tr>
+              <tr>
+                <th>Gender</th>
+                <td>{{user.gender}}</td>
+              </tr>
+              <tr>
+                <th>Date of Birth</th>
+                <td>{{user.dateOfBirth | date }}</td>
+              </tr>
+              <tr>
+                <th>Mobile Number</th>
+                <td>{{user.phone_no}}</td>
+              </tr>
+              <tr>
+                <th>Email</th>
+                <td>{{user.email}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel-footer">
+          <hr>
+          <a routerLink="/user/edit/profile" type="button" class="btn btn-default btn-lg">Edit</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11,6 +11,7 @@ import { CategoryService } from '../category/category.service';
   styleUrls: ['./home.component.css'],
    providers: [CategoryService]
 })
+
 export class HomeComponent implements OnInit {
   
   products:Product
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit {
     this.getPopularProducts()
   }
 
-   getPopularProducts() {
+  getPopularProducts() {
     this.productService.getPopularProducts().subscribe(
       (response: Product) => {
         this.products = response 

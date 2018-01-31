@@ -30,7 +30,7 @@
                 <ul class="list-inline">
                   <li *ngFor="let color of colors"><button 
                     (click)="getProductcByColor(color.color_name)"
-                    type="button" data-toggle="tooltip" data-placement="top" title="color" class="color-box"  [ngStyle]="{'background-color':color.color_code}"></button></li>
+                    type="button" data-toggle="tooltip" data-placement="top" title="{{color.color_name}}" class="color-box"  [ngStyle]="{'background-color':color.color_code}"></button></li>
                  
                 </ul>
               </div>

@@ -7,17 +7,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StarRatingModule } from 'angular-star-rating';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import {ImageZoomModule} from 'angular2-image-zoom';
+import { CustomFormsModule } from 'ng2-validation'
 
 import { ProductRoutingModule } from './product/product.routing';
-import { HomeRoutingModule } from './home/home.routing';
+import { RoutingModule } from './home/app.routing';
+import { AuthModule } from './auth.module';
 
 
 import { CategoryService } from './category/category.service';
 import { ProductFilterService } from './product/product-filter.service';
 import { RatingService } from './rating/rating.service'
 import { ProductService } from './product/product.service';
-import { AuthService } from './auth.service';
+import { AuthServiceLocal } from './auth.service';
 import { ColorService } from './color/color.service'
+import { UserService } from './user/user.service'
 import { AuthGuard } from './guards/auth.guard';
 
 import { AppComponent } from './app.component';
@@ -34,7 +37,8 @@ import { ProductDetailsComponent } from './product/product-details.component';
 import { ProductListComponent } from './product/product-list.component';
 import { SideBarComponent } from './sidebar/sidebar.component';
 import { RateModalComponent } from './rate-modal/rate-modal.component';
-
+import { UserProfileComponent } from './user/user-profile.component';
+import { EditProfileComponent } from './user/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -51,20 +55,24 @@ import { RateModalComponent } from './rate-modal/rate-modal.component';
     ProductDetailsComponent,
     ProductListComponent,
     SideBarComponent,
-    RateModalComponent
+    RateModalComponent,
+    UserProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     ImageZoomModule,
+    AuthModule,
+    CustomFormsModule,
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
     StarRatingModule.forRoot(),
     ProductRoutingModule,
-    HomeRoutingModule,
+    RoutingModule,
     InfiniteScrollModule
   ],
-  providers: [ProductService,CategoryService, AuthService, AuthGuard, ColorService, ProductFilterService, RatingService ],
+  providers: [ProductService,CategoryService, AuthServiceLocal, AuthGuard, ColorService, ProductFilterService, RatingService, UserService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

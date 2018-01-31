@@ -43,10 +43,10 @@
             <span class="caret"></span>
           </a>
             <ul class="dropdown-menu">
-              <li *ngIf="currentUserId"><a href="./views/user/profile.html" ><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp; Profile</a></li>
+              <li *ngIf="currentUserId"><a routerLink="/user/profile" routerLinkActive="active"><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp; Profile</a></li>
               <li *ngIf="currentUserId"><a href="./views/user/orders.html" ><i class="fa fa-list-alt fa-fw" aria-hidden="true"></i>&nbsp; Orders</a></li>
               <li *ngIf="currentUserId"><a href="./views/user/address.html" ><i class="fa fa-address-card-o fa-fw" aria-hidden="true"></i>&nbsp; Addresses</a></li>
-              <li *ngIf="currentUserId"><a (click)="logout()" ><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>&nbsp; Logout</a></li>
+              <li *ngIf="currentUserId"><a (click)="logout()"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>&nbsp; Logout</a></li>
               <li *ngIf="!currentUserId"><a routerLink="/login" routerLinkActive="active" ><i class="fa fa-sign-in fa-fw" aria-hidden="true"></i>&nbsp; Login</a></li>
               <li *ngIf="!currentUserId"><a routerLink="/register" routerLinkActive="active" ><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i>&nbsp; Register</a></li>
             </ul>

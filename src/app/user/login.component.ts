@@ -1,9 +1,9 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { AuthService } from "angular2-social-login";
 
-import { AuthService } from '../auth.service';
+import { AuthServiceLocal } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
   formBuilder: FormBuilder = new FormBuilder;
   constructor(
       private router: Router,
-      private authService: AuthService,
+      private authServiceLocal: AuthServiceLocal,
+      private authservice: AuthService
   ) { }
 
 
@@ -25,15 +26,15 @@ export class LoginComponent implements OnInit {
        this.router.navigate(['']);
     }
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
-      password: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[a-zA-Z0-9\-_]{0,40}$/)]]
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(3)]]
     });
     
   }
 
 
   onSubmit(){
-  this.authService.login(this.loginForm.value).subscribe(
+    this.authServiceLocal.login(this.loginForm.value).subscribe(
       (response: any) => {
        this.router.navigate(['']);
         location.reload();
@@ -42,6 +43,25 @@ export class LoginComponent implements OnInit {
       },
       (error :Error) => {
         return error
+      }
+    )
+  }
+
+   signIn(provider){
+    this.authservice.login(provider).subscribe(
+      (data) => {
+        console.log(data);
+        this.authServiceLocal.socialLogin(data).subscribe(
+          (response: any) => {
+           this.router.navigate(['']);
+            location.reload();
+            this.user = response 
+            return response
+          },
+          (error :Error) => {
+            return error
+          }
+        )
       }
     )
   }

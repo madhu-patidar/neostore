@@ -19,32 +19,39 @@
 
             <p class="text-muted text-center">--OR USING--</p>
 
-            <form class="form-custom" autocomplete="on" novalidate>
+            <form class="form-custom" [formGroup]="signupForm" (ngSubmit)="signupForm.valid && onSubmit(signupForm.value)" >
               <div class="form-group">
-                <input type="email" class="form-control" placeholder="Your Email Address">
-                <small class="text-danger">Please enter valid email</small>
+                <input type="text" class="form-control" formControlName="email" placeholder="Email Address" [ngClass]="{ 'error' : signupForm.controls.email.invalid && signupForm.controls.email.dirty }" >
+                <div *ngIf="signupForm.controls.email.invalid && signupForm.controls.email.dirty">
+                  <small *ngIf="signupForm.controls.email.hasError('required')" class="text-danger">Can't be blank</small>   
+                  <small *ngIf="signupForm.controls.email.hasError('email')" class="text-danger">Invalid email pattern</small>      
+                </div>
+                <input type="password" class="form-control" formControlName="password" placeholder="Password"  [ngClass]="{ 'error' : signupForm.controls.password.invalid && signupForm.controls.password.dirty }" >
 
-                <input type="password" class="form-control" placeholder="Choose Password">
-                <small class="text-danger">Please enter valid password</small>
+                <div *ngIf="signupForm.controls.password.invalid && signupForm.controls.password.dirty">
+                  <small *ngIf="signupForm.controls.password.hasError('required')" class="text-danger">Can't be blank</small>
+                  <small *ngIf="signupForm.controls.password.hasError('minlength')" class="text-danger">Can't be less than 3 characters</small>            
+                </div>
 
-                <input type="password" class="form-control" placeholder="Confirm Password">
-                <small class="text-danger">Password does not matches</small>
+                <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password" [equalTo]="password" [ngClass]="{ 'error' : signupForm.controls.confirmPassword.invalid && signupForm.controls.confirmPassword.dirty }" > 
+                <small class="text-danger" *ngIf="signupForm.controls.confirmPassword.invalid && signupForm.controls.confirmPassword.dirty">Password does not matches</small> 
 
-                <input type="number" class="form-control" placeholder="Enter Phone Number">
-                <small class="text-danger">Please enter phone number</small>
+                <input type="number" class="form-control" formControlName="phoneNumber" [ngClass]="{ 'error' : phoneNumber.invalid && phoneNumber.dirty }" placeholder="Enter Phone Number" > 
+                <small *ngIf="signupForm.controls.phoneNumber.hasError('minlength')" class="text-danger">Can't be less than 10 characters</small> 
+
 
                 <legend class="gender-legend">I'm</legend>
-                <div class="checkbox">
-                  <label><input type="radio" value="male" name="gender"> <strong>Male</strong> </label>
-                  <label><input type="radio" value="female" name="gender"> <strong>Female</strong> </label>
+                <div class="checkbox" [ngClass]="{ 'error' : gender.invalid && gender.dirty }">
+                  <label><input type="radio" formControlName="gender" value="male" name="gender"> <strong>Male</strong> </label>
+                  <label><input type="radio" formControlName="gender" value="female" name="gender"> <strong>Female</strong> </label>
                 </div>
-                <small class="text-danger">Please select</small>
-
-                <button type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
+                <small class="text-danger" *ngIf="gender.invalid && gender.dirty">Please select</small>  
+              </div>
+              <div class="form-group">
+                <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="signupForm.invalid">Register</button>
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
- <app-footer></app-footer>

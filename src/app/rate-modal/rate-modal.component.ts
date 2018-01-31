@@ -54,7 +54,6 @@ export class RateModalComponent implements OnInit {
   isAuthenticate(){
 
   	 if(localStorage.getItem('currentUser') == undefined){
-  	 	alert("modal")
         this.router.navigate(['/login']);
         return false;
       }
