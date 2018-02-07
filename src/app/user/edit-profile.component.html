@@ -18,7 +18,7 @@
         <br>
         <ul class="nav">
           <li><a href="./orders.html" ><i class="fa fa-pencil fa-fw" aria-hidden="true"></i>&nbsp; Orders</a></li>
-          <li><a hrouterLink="/user/profile" routerLinkActive="active" ><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp; Profile</a></li>
+          <li><a routerLink="/user/profile" routerLinkActive="active" ><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp; Profile</a></li>
           <li><a href="./address.html" ><i class="fa fa-address-book fa-fw" aria-hidden="true"></i>&nbsp; Address</a></li>
         </ul>
       </div>
@@ -29,58 +29,58 @@
             <h4><strong>Edit Profile</strong></h4>
             <hr>
 
-            <form  [formGroup]="editProfileForm" (ngSubmit)="editProfileForm.valid && onSubmit(editProfileForm.value)">
+          <form [formGroup]="editProfileForm" (ngSubmit)="editProfileForm.invalid || editProfile(editProfileForm.value)" novalidate>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group" >
+                  <label for="first_name">First Name</label>         
+                  <input type="text" class="form-control" formControlName="first_name" [ngClass]="{ 'error' : first_name.invalid && first_name.dirty }">
+                </div>
+                <small class="text-danger" *ngIf="first_name.invalid && first_name.dirty">Please enter valid first name</small>
+              </div>
+            </div>
 
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input type="text" class="form-control" value="" formControlName="first_name">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" class="form-control"  formControlName="last_name" [ngClass]="{ 'error' : last_name.invalid && last_name.dirty }">
                   </div>
-                  <small class="text-danger">Please enter valid first name</small>
+                  <small  class="text-danger" *ngIf="last_name.invalid && last_name.dirty" >Please enter valid last name</small>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="lastName">Last Name</label>
-                    <input type="text" class="form-control" value="" formControlName="last_name">
-                  </div>
-                  <small class="text-danger">Please enter valid last name</small>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <div class="checkbox">
-                      <label><input type="radio" value="male" name="gender" checked formControlName="gender"> <strong>Male</strong> </label>
-                      <label><input type="radio" value="female" name="gender" formControlName="gender"> <strong>Female</strong> </label>
+                  <div class="form-group" >
+                    <label for="gender">Gender</label>         
+                    <div class="checkbox" [ngClass]="{ 'error' : gender.invalid && gender.dirty }">
+                      <label><input type="radio" formControlName="gender" value="male" name="gender"> <strong>Male</strong> </label>
+                      <label><input type="radio" formControlName="gender" value="female" name="gender"> <strong>Female</strong> </label>
                     </div>
                   </div>
-                  <small class="text-danger">Please select gender</small>
+                  <small class="text-danger" *ngIf="gender.invalid && gender.dirty">Please select gender</small>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="dateOfBirth">Date of Birth</label>
-                    <input type="date" class="form-control" value="userInfo.birth_date" formControlName="birth_date">
+                    <label for="birth_date">Date of Birth</label>
+                    <input type="date" class="form-control" formControlName="birth_date">
                   </div>
-                  <small class="text-danger">Please enter valid date</small>
+                   <small class="text-danger" *ngIf="birth_date.invalid && birth_date.dirty">Please enter valid date</small>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="mobile">Mobile</label>
-                    <input type="number" class="form-control" value="">
+                    <label for="phone_no">Mobile</label>
+                    <input type="number" class="form-control" formControlName="phone_no">
                   </div>
-                  <small class="text-danger">Please enter valid mobile number</small>
+                  <small class="text-danger" *ngIf="phone_no.invalid && phone_no.dirty">Please enter valid mobile number</small>
                 </div>
               </div>
 
@@ -88,21 +88,18 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" value="{{email}}" formControlName="email">
+                    <input type="email" class="form-control" formControlName="email">
                   </div>
-                  <small class="text-danger">Please enter valid email</small>
+                  <small class="text-danger" *ngIf="email.invalid && email.dirty" >Please enter valid email</small>
                 </div>
               </div>
 
               <hr>
               <button type="submit" class="btn btn-default btn-lg"><i class="fa fa-floppy-o"></i>Save</button>
-              <a href="./profile.html" type="button" class="btn btn-default btn-lg"><i class="fa fa-remove"></i>Cancel</a>
+              <a routerLink="/user/profile" type="button" class="btn btn-default btn-lg"><i class="fa fa-remove"></i>Cancel</a>
             </form>
-
-
           </div>
         </div>
-
       </div>
     </div>
   </div>

@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { StarRatingModule } from 'angular-star-rating';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import {ImageZoomModule} from 'angular2-image-zoom';
+import { ImageZoomModule } from 'angular2-image-zoom';
 import { CustomFormsModule } from 'ng2-validation'
 
 import { ProductRoutingModule } from './product/product.routing';

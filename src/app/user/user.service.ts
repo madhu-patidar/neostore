@@ -26,14 +26,13 @@ constructor(private http: Http) { }
   }
 
   updateUser(user): Observable<any>{
-    return this.http.put(userUrl, JSON.stringify(user), {headers: this.headers}).map((response: Response) => {                                
-    debugger
-       let res = response.json();
+    return this.http.patch(userUrl  + "/" + this.curent_user_userId + '?access_token='+ this.current_user_accesToken,  JSON.stringify(user) , {headers: this.headers}).map((response: Response) => {
+      let res = response.json();
        if (res.userId ){
         return response;
        }
        else{
-         return response;
+        return response;
        }
     }).catch(this.handleError)
   }
