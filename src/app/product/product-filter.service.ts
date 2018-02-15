@@ -20,7 +20,6 @@ export class ProductFilterService {
   }
 
   getProductsByRating(): Observable<Product>{
-    debugger
     return this.http.get(productUrl + '?filter={"order": "product_avg_rating  DESC","include":"images"}').map((response: Response) => {                                
       return <Product>response.json()
     }).catch(this.handleError)

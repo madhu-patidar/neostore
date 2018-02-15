@@ -22,7 +22,6 @@ export class UserProfileComponent implements OnInit {
     this.userService.getUser().subscribe((
     	response: any) => {
     		this.user = response;
-        debugger
         console.log(this.user)
     		this.user.birth_date = new Date(response.birth_date).toDateString()
     		this.name = this.user.first_name +" "+ this.user.last_name ;

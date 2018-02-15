@@ -5,6 +5,8 @@ import 'rxjs/add/operator/map'
 import 'rxjs/Rx';
 
 import { userUrl } from '../apiUrls'
+import { userAddressesUrl } from '../apiUrls'
+
 import { User } from './user'
 
 
@@ -20,13 +22,14 @@ constructor(private http: Http) { }
   curent_user_userId = localStorage.getItem('currentUserId')
 
   getUser(): Observable<{} | User>{
-    return this.http.get( userUrl + "/" + this.curent_user_userId + '?access_token=' + this.current_user_accesToken).map((response: Response) => {
+    return this.http.get( userUrl + "/" + this.curent_user_userId + '?access_token=' + this.current_user_accesToken + '&&filter={"include":"images"}').map((response: Response) => {
       return <{} | User>response.json()
     }).catch(this.handleError)
   }
 
   updateUser(user): Observable<any>{
-    return this.http.patch(userUrl  + "/" + this.curent_user_userId + '?access_token='+ this.current_user_accesToken,  JSON.stringify(user) , {headers: this.headers}).map((response: Response) => {
+    return this.http.patch(userUrl  + "/" + this.curent_user_userId + "?access_token=" + this.current_user_accesToken,  JSON.stringify(user) , {headers: this.headers}).map((response: Response) => {
+      debugger
       let res = response.json();
        if (res.userId ){
         return response;
@@ -36,6 +39,16 @@ constructor(private http: Http) { }
        }
     }).catch(this.handleError)
   }
+
+  getUserAddresses(): Observable<any>{
+    return this.http.get(userAddressesUrl + this.curent_user_userId).map((response: Response) => {
+      debugger
+      let res = response.json();
+      return res
+    }).catch(this.handleError)
+  }
+
+
 
   handleError(error: Response) { 
     return Observable.throw(error.json());

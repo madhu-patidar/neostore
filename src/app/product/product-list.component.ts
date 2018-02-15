@@ -94,7 +94,6 @@ export class ProductListComponent implements OnInit {
     this.productFilterService.getProductsByRating().subscribe(
       (response: any) => {
         this.products = response 
-        debugger
         this.images = response.images
         this.productArray = response
         this.categoryTitle = this.allCategories

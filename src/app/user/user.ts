@@ -11,4 +11,15 @@ export class User {
   birth_date?: any;
   id?: string;
   orderId?: string;
+  images?: UserImage[]
+}
+
+export class UserImage {
+    ImgURL: string;
+    container: string;
+    id: string;
+    isActive: boolean;
+    name: string;
+    productId: string;
+    type: string
 }

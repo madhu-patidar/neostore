@@ -1,0 +1,55 @@
+  <div class="container">
+    <div class="container">
+      <div class="container-fluid">
+        <div class="col-md-12">
+          <h4> My Account </h4>
+          <hr>
+        </div>
+
+        <div class="col-md-3">
+          <img src="http://soeasyloansonline.com.au/img/testimonial/noimg.png" 
+               class="img-responsive img-circle profile" alt="profile_pic" 
+               style="height: 200px; width: 200px !important;">
+      
+          <div class="text-center">
+            <br>
+            <div class="text-danger"><strong>Test User</strong></div>
+          </div>
+          <br>
+          <ul class="nav">
+            <li><a href="./orders.html" ><i class="fa fa-pencil fa-fw" aria-hidden="true"></i>&nbsp; Orders</a></li>
+            <li><a routerLink="/user/profile" routerLinkActive="active" ><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp; Profile</a></li>
+            <li><a routerLink="/user/addresses" ><i class="fa fa-address-book fa-fw" aria-hidden="true"></i>&nbsp; Address</a></li>
+          </ul>
+        </div>
+
+        <div class="col-md-9">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3>Addresses</h3>
+              <hr>
+            </div>
+            <div class="panel-body" *ngFor="let address of addresses">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p>{{address.fulladdress}}</p>
+                        <p>{{address.city}} - {{address.pincode}}</p>
+                        <p>{{address.state}}</p>
+                        <p>{{address.country}}</p>
+                    </div>
+                    <div class="panel-footer">
+                        <input type="radio" name="address"> Select
+                        <a href="./edit-address.html" type="button" class=" btn-default"><i class="fa fa-pencil"></i> Edit</a>
+                    </div>
+                </div>
+            </div>            
+            <div class="panel-footer">
+              <hr>
+              <a href="./add-address.html" type="button" class="btn btn-default btn-lg">Add new</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>

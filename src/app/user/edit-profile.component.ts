@@ -10,7 +10,7 @@ import { User } from './user'
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css']
 })
-export class EditProfileComponent implements OnInit,  OnChanges{
+export class EditProfileComponent implements OnInit {
 
   constructor(
     private router: Router,
@@ -19,6 +19,7 @@ export class EditProfileComponent implements OnInit,  OnChanges{
 
   @Input() user: User
 
+  name:string
   editProfileForm: FormGroup
   first_name: FormControl
   last_name: FormControl
@@ -28,7 +29,6 @@ export class EditProfileComponent implements OnInit,  OnChanges{
   email: FormControl
 
   ngOnInit() {
-    debugger
     this.editProfileFormValidation()
     this.getCurrentUser()
   }
@@ -64,13 +64,12 @@ export class EditProfileComponent implements OnInit,  OnChanges{
     })
   }
 
-        ngOnChanges() {
-debugger
-  }
+
   getCurrentUser(){
     this.userService.getUser().subscribe(
       (response: User) => {
         this.user = response
+        this.name = this.user.first_name + " " + this.user.last_name
         this.polpulateEditProfileForm(this.user)
         return response
       },
@@ -96,7 +95,6 @@ debugger
   }
 
   editProfile(formValues){
-    debugger
     console.log(formValues)
     let userInfo = {
       first_name: formValues.first_name,
